@@ -68,7 +68,7 @@ DEBUG = 'DEV' in os.environ
 ALLOWED_HOSTS = [
     '8000-pernilla-strandberg-my-c-ugu0vlpjdc.us2.codeanyapp.com',
     'localhost',
-    'drf-api-my-creative-gems.herokuapp.com'
+    'drf-api-my-creative-gems-f8e57028547e.herokuapp.com/'
 ]
 
 
@@ -115,12 +115,12 @@ MIDDLEWARE = [
 
 if 'CLIENT_ORIGIN' in os.environ:
     CORS_ALLOWED_ORIGINS = [
-         os.environ.get('CLIENT_ORIGIN')
-     ]
+        os.environ.get('CLIENT_ORIGIN')
+    ]
 else:
     CORS_ALLOWED_ORIGIN_REGEXES = [
-         r"^https://.*\.gitpod\.io$",
-     ]
+        r"^https://.*\.gitpod\.io$",
+    ]
 
 # Enable sending cookies in cross-origin requests -> users can get auth funct.
 CORS_ALLOW_CREDENTIALS = True
