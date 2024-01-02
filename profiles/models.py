@@ -9,12 +9,10 @@ class Profile(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=255, blank=True)
     content = models.TextField(blank=True)
+    content_social = models.TextField(blank=True)
     image = models.ImageField(
         upload_to='images/', default='../default_profile_aj4ya7'
     )
-    facebookUrl = models.URLField(max_length=200, blank=True, null=True)
-    twitterUrl = models.URLField(max_length=200, blank=True, null=True)
-    tiktokUrl = models.URLField(max_length=200, blank=True, null=True)
 
     class Meta:
         ordering = ['-created_at']
