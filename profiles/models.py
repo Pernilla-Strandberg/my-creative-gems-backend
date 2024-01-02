@@ -12,6 +12,9 @@ class Profile(models.Model):
     image = models.ImageField(
         upload_to='images/', default='../default_profile_aj4ya7'
     )
+    facebook_url = models.URLField(blank=True, null=True)
+    twitter_url = models.URLField(blank=True, null=True)
+    tiktok_url = models.URLField(blank=True, null=True)
 
     class Meta:
         ordering = ['-created_at']
