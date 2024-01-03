@@ -18,6 +18,14 @@ class CommentList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+    def get_queryset(self):
+        user = self.request.user
+        queryset = Comment.objects.filter(
+            models.Q(owner=user) | models.Q(recipient=user),
+            is_private=True
+        )
+        return queryset
+
 
 class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
     """
