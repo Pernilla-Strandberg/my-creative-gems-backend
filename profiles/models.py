@@ -9,7 +9,9 @@ class Profile(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=255, blank=True)
     content = models.TextField(blank=True)
-    content_social = models.TextField(blank=True)
+    content_social_facebook = models.TextField(blank=True)
+    content_social_twitter = models.TextField(blank=True)
+    content_social_tiktok = models.TextField(blank=True)
     image = models.ImageField(
         upload_to='images/', default='../default_profile_aj4ya7'
     )
