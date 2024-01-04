@@ -20,6 +20,14 @@ class CommentList(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user,
                         is_private=self.request.data.get('is_private', False))
 
+    def get_queryset(self):
+        user = self.request.user
+        queryset = Comment.objects.filter(
+            models.Q(owner=user) | models.Q(recipient=user),
+            is_private=True
+        )
+        return queryset
+
     # def get_queryset(self):
     #     user = self.request.user
     #     queryset = Comment.objects.filter(
