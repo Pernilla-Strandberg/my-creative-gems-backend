@@ -33,3 +33,9 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class CommentDetailSerializer(CommentSerializer):
     post = serializers.ReadOnlyField(source='post.id')
+
+
+class PrivateCommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = '__all__'
