@@ -1,6 +1,5 @@
 from rest_framework import generics, permissions
 from django_filters.rest_framework import DjangoFilterBackend
-# from django.shortcuts import get_object_or_404
 from drf_api.permissions import IsOwnerOrReadOnly
 from .models import Comment
 from .serializers import CommentSerializer, CommentDetailSerializer
@@ -8,7 +7,9 @@ from .serializers import CommentSerializer, CommentDetailSerializer
 
 class CommentList(generics.ListCreateAPIView):
     """
-    List comments, create if logged in.
+    List all comments
+    Create a new comment if authenticated
+    Associate current logged-in user with the comment
     """
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -17,25 +18,7 @@ class CommentList(generics.ListCreateAPIView):
     filterset_fields = ['post']
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user,
-                        is_private=self.request.data.get('is_private', False))
-
-    def get_queryset(self):
-        user = self.request.user
-        queryset = Comment.objects.filter(
-            models.Q(owner=user) | models.Q(recipient=user),
-            is_private=True
-        )
-        return queryset
-
-    # def get_queryset(self):
-    #     user = self.request.user
-    #     queryset = Comment.objects.filter(
-    #         models.Q(owner=user) | models.Q(recipient=user),
-    #         is_private=True,
-    #         post_id=self.kwargs['post_id'],  # Ensure correct filter. by post
-    #     )
-    #     return queryset
+        serializer.save(owner=self.request.user)
 
 
 class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -45,18 +28,3 @@ class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = CommentDetailSerializer
     queryset = Comment.objects.all()
-
-    # def get_queryset(self):
-    #     user = self.request.user
-    #     queryset = Comment.objects.filter(
-    #         models.Q(owner=user) | models.Q(recipient=user),
-    #         is_private=True,
-    #         recipient__isnull=False
-    #     )
-    #     return queryset
-
-    # def get_object(self):
-    #     queryset = self.get_queryset()
-    #     obj = get_object_or_404(queryset, pk=self.kwargs['pk'])
-    #     self.check_object_permissions(self.request, obj)
-    #     return obj

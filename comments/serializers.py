@@ -28,11 +28,8 @@ class CommentSerializer(serializers.ModelSerializer):
             'id', 'owner', 'is_owner', 'profile_id',
             'profile_image', 'post', 'created_at', 'updated_at',
             'content', 'is_private'
-            # 'is_private', 'recipient'
         ]
 
 
 class CommentDetailSerializer(CommentSerializer):
     post = serializers.ReadOnlyField(source='post.id')
-    # recipient = serializers.ReadOnlyField(
-    #     source='recipient.username', allow_null=True)

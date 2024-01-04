@@ -13,11 +13,6 @@ class Comment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     content = models.TextField()
     is_private = models.BooleanField(default=False)
-    # recipient = models.ForeignKey(
-    #     User, on_delete=models.CASCADE,
-    #     related_name='recipient_comments',
-    #     null=True, blank=True
-    # )
 
     class Meta:
         ordering = ['-created_at']
