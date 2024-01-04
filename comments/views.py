@@ -1,5 +1,6 @@
 from rest_framework import generics, permissions
 from django_filters.rest_framework import DjangoFilterBackend
+from django.shortcuts import get_object_or_404
 from drf_api.permissions import IsOwnerOrReadOnly
 from .models import Comment
 from .serializers import CommentSerializer, CommentDetailSerializer
@@ -22,7 +23,8 @@ class CommentList(generics.ListCreateAPIView):
         user = self.request.user
         queryset = Comment.objects.filter(
             models.Q(owner=user) | models.Q(recipient=user),
-            is_private=True
+            is_private=True,
+            post_id=self.kwargs['post_id'],  # Ensure correct filtering by post
         )
         return queryset
 
@@ -42,3 +44,9 @@ class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
             recipient__isnull=False
         )
         return queryset
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        obj = get_object_or_404(queryset, pk=self.kwargs['pk'])
+        self.check_object_permissions(self.request, obj)
+        return obj
