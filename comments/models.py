@@ -12,7 +12,7 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     content = models.TextField()
-    # is_private = models.BooleanField(default=False)
+    is_private = models.BooleanField(default=False)
     # recipient = models.ForeignKey(
     #     User, on_delete=models.CASCADE,
     #     related_name='recipient_comments',

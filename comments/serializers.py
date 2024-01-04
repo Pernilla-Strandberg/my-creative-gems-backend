@@ -10,6 +10,7 @@ class CommentSerializer(serializers.ModelSerializer):
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
     created_at = serializers.SerializerMethodField()
     updated_at = serializers.SerializerMethodField()
+    is_private = serializers.BooleanField(default=False)
 
     def get_is_owner(self, obj):
         request = self.context['request']
@@ -26,7 +27,7 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'owner', 'is_owner', 'profile_id',
             'profile_image', 'post', 'created_at', 'updated_at',
-            'content'
+            'content', 'is_private'
             # 'is_private', 'recipient'
         ]
 
