@@ -33,4 +33,12 @@ class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = CommentDetailSerializer
-    queryset = Comment.objects.all()
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = Comment.objects.filter(
+            models.Q(owner=user) | models.Q(recipient=user),
+            is_private=True,
+            recipient__isnull=False
+        )
+        return queryset
