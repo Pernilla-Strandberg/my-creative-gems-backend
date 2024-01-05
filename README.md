@@ -1,4 +1,4 @@
-[header](https://asset.cloudinary.com/dhsebcxo5/2616b45db448eebb332aec8c0008abd9)
+![header](https://asset.cloudinary.com/dhsebcxo5/2616b45db448eebb332aec8c0008abd9)
 
 [View Live Project here](https://my-creative-gems-0b32c514e941.herokuapp.com/)
 [View GitHub Repository](https://github.com/users/Pernilla-Strandberg/my-creative-gems)
