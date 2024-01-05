@@ -40,3 +40,6 @@ class PrivateCommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = ['id', 'owner', 'post', 'created_at', 
         'updated_at', 'content', 'is_private']
+
+    def create(self, validated_data):
+        return Comment.objects.create(**validated_data)
