@@ -38,4 +38,5 @@ class CommentDetailSerializer(CommentSerializer):
 class PrivateCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
-        fields = '__all__'
+        fields = ['id', 'owner', 'post', 'created_at', 
+        'updated_at', 'content', 'is_private']
