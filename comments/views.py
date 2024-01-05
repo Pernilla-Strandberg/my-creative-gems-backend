@@ -43,3 +43,6 @@ class PrivateCommentList(generics.ListCreateAPIView):
     def get_queryset(self):
         user = self.request.user
         return Comment.objects.filter(is_private=True, post__owner=user) | Comment.objects.filter(is_private=True, owner=user)
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user, is_private=True)  # Ensure is_private is set during creation
